@@ -13,9 +13,16 @@ void tatami::registry(account_name school_name, std::string pub_key)
     });
 }
 
-void tatami::addclaim(account_name student_name, std::string signature, std::string row_type)
+void tatami::addclaim(account_name student_name, vector<string> &signature, vector<string> &row_type)
 {
-    return;
+    require_auth(student_name);
+    //_users.get(school, "User is already exist");
+
+    _students.emplace(get_self(), [&](auto &s) {
+        s.student_name = student_name;
+        s.signature = signature;
+        s.row_type = row_type;
+    });
 }
 
 void tatami::verifyclaim(account_name student_name, uint64_t index)

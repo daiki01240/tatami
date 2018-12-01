@@ -50,7 +50,7 @@ class tatami : public eosio::contract
 
       void registry(account_name school_name, std::string pub_key);
 
-      void addclaim(account_name student_name, std::string signature, std::string row_type);
+      void addclaim(account_name student_name, vector<string> &signature, vector<string> &row_type);
 
       void verifyclaim(account_name student_name, uint64_t index);
 };
