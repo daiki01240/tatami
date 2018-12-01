@@ -38,3 +38,5 @@ void tatami::verifyclaim(account_name student_name, uint64_t index)
            std::make_tuple(sig, data))
         .send();
 }
+
+EOSIO_ABI(tatami, (registry)(addclaim)(verifyclaim))
