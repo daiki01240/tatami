@@ -27,5 +27,14 @@ void tatami::addclaim(account_name student_name, vector<string> &signature, vect
 
 void tatami::verifyclaim(account_name student_name, uint64_t index)
 {
-    return;
+    require_auth(student_name);
+    //_users.get(school, "User is already exist");
+    auto student = _students.find(student_name);
+    auto sig = student->signature[index];
+    auto data = student->row_type[index];
+
+    action(permission_level{get_self(), N(active)},
+           N(stateofchain), N(ecrecover),
+           std::make_tuple(sig, data))
+        .send();
 }
